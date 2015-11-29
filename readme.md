@@ -1,0 +1,1 @@
+Multiplayer latin square
