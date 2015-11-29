@@ -49,11 +49,10 @@ numberAlpha = function(number) {
 	};
 
 
-placeTile = function(tile, spot) {
+placeTile = function(tileSpot, boxSpot) {
 
-	var tileHand = Tiles.find({gameToken : Session.get("gameToken"), tileState: "unplayed"}).fetch();
-	var tileToMove = tileHand[tile-1];
-	var BoxToPlace = Boxes.findOne({gameToken : Session.get("gameToken"), boxOrder : spot});
+	var tileToMove = Tiles.findOne({gameToken : Session.get("gameToken"), spot: tileSpot });
+	var BoxToPlace = Boxes.findOne({gameToken : Session.get("gameToken"), boxOrder : boxSpot});
 
 	if(BoxToPlace.content === tileToMove.content && BoxToPlace.hidden === true){
 		

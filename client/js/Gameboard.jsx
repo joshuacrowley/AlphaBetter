@@ -18,7 +18,6 @@ Gameboard = React.createClass({
 		var rows = _.groupBy(this.data.boxes, function(element, index){return Math.floor(index/n)});
 		rows = _.toArray(rows);
 		game = this.data.game;
-		console.log(game);
 		rows.forEach(function (row) {
       		gameRows.push(<BoardRow rowData={row} gameData={game} />)
   		});

@@ -85,7 +85,7 @@ Meteor.methods({
     Boxes.update({ _id : BoxToPlace._id}, {$set : {hidden : false}},
       function(err, result) {
 
-        if (result){
+        if (!err){
 
         Tiles.update({_id : tileToMove._id}, {$set : {tileState : "played"}});
 

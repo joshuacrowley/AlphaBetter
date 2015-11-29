@@ -19,10 +19,9 @@ Box = React.createClass({
     	}else{
 
     		var tiles  = $('div.handTile')
-    		var selected = tiles.filter('.highlight')
-    		var highlightedTile = tiles.index(selected) + 1;
-    		console.log(highlightedTile);
-      		placeTile(highlightedTile, this.props.box.boxOrder);
+    		var selected = tiles.filter('.highlight')    		
+    		placeTile($(selected).data("spot"), this.props.box.boxOrder);
+    		//var highlightedTile = tiles.index(selected) + 1;
       		$( "li" ).removeClass("highlight");
     	};
 

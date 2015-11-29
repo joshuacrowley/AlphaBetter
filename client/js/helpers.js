@@ -93,7 +93,7 @@ Template.tile.helpers({
 
   alphaTile : function(){
     return numberAlpha(this.content);
-  },
+  }
 
 })
 
