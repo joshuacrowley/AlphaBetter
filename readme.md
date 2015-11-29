@@ -1,1 +1,1 @@
-Multiplayer latin square
+Multiplayer latin square hosted at alphabetter.meteor.com
