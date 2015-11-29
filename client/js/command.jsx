@@ -15,13 +15,11 @@ Meteor.startup(function() {
 
 
 Template.gameboard.onRendered(function () {
-
 		if (Meteor.isClient) {
 			Meteor.startup(function () {
 				React.render(<Gameboard />, document.getElementById("classicBoard"));
 			});
 		};
-
 });
 
 
@@ -63,7 +61,7 @@ placeTile = function(tile, spot) {
 			if(!error){
 
 				Session.set("outcome", "Nice move, you've gained two points. Pick another tile.");
-				Meteor.call('updateScore', Session.get("gameToken"), Session.get("playerToken"), 2);
+				Meteor.call('updateScore', Session.get("gameId"), Session.get("playerToken"), 2);
 				$('#outcome').addClass('animated pulse').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', 
 					function(){
 						$(this).removeClass('animated pulse');
@@ -90,7 +88,7 @@ placeTile = function(tile, spot) {
 		
 		addGuess(BoxToPlace, tileToMove);
 		Session.set("outcome", "Nope, that letter doesn't fit there – other players can see your guess and you've lost a point.");
-		Meteor.call('updateScore', Session.get("gameToken"), Session.get("playerToken"), -1);
+		Meteor.call('updateScore', Session.get("gameId"), Session.get("playerToken"), -1);
 
 		$('#instructions').addClass('animated flash').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', 
 			function(){

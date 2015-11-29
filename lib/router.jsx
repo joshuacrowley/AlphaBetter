@@ -21,9 +21,9 @@ Router.route('/games/:_id', {
 		Session.setDefaultPersistent('shared', false);
 		Session.setDefaultPersistent('special', false);
 		Session.setDefaultPersistent('tile', "none");
-		//Session.set("gameId", Games.findOne({gameToken: this.params._id})._id);
 		Session.set("gameToken", this.params._id);
-
+		Session.set("gameId", Games.findOne({gameToken: this.params._id})._id);
+		
 		var current = Iron.Location.get();
 
 		if(current.queryObject.shared === "yes"){
@@ -33,11 +33,11 @@ Router.route('/games/:_id', {
 		if (typeof Session.get('playerToken') === 'undefined'){
 			var playerToken = Random.id([8]);
 			Session.setDefaultPersistent('playerToken', playerToken);
-			Meteor.call('addOpponent', this.params._id, playerToken);
+			Meteor.call('addOpponent', Session.get("gameId"), playerToken);
     		analytics.identify(playerToken);
  
 		}else{
-			Meteor.call('addOpponent', this.params._id, Session.get('playerToken'));
+			Meteor.call('addOpponent', Session.get("gameId"), Session.get('playerToken'));
 			analytics.identify(Session.get('playerToken'));
 		};
     }

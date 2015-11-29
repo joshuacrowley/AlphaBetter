@@ -50,33 +50,30 @@ Meteor.methods({
 
   },
 
-  updateScore : function(gameToken, playerToken, amount){
+  updateScore : function(gameId, playerToken, amount){
 
-    var game = Games.findOne({"gameToken" : gameToken});
-    var player = _.filter(game.player, function(player) { return player.playerToken === playerToken });
+    var player = Games.findOne({_id : gameId}).player;
+    player = _.filter(player, function(player) { return player.playerToken === playerToken });
 
     if ((player[0].playerScore + amount) > 0 ){
 
-    Games.update({"gameToken" : gameToken, "player.playerToken" : playerToken}, 
+    Games.update({_id : gameId, "player.playerToken" : playerToken}, 
         {$inc : { "player.$.playerScore" : amount}}, 
-        function(){console.log("player " + playerToken + " score is " + gameToken + ".")});
+        function(){console.log("player " + playerToken + " score is " + gameId + ".")});
 
     }else if((player[0].playerScore + amount) <= 0){
 
-      Games.update({"gameToken" : gameToken, "player.playerToken" : playerToken}, 
+      Games.update({_id : gameId, "player.playerToken" : playerToken}, 
         {$set : { "player.$.playerScore" : 0}}, 
-        function(){console.log("player " + playerToken + " score is " + gameToken + ".")});
+        function(){console.log("player " + playerToken + " score is " + gameId + ".")});
 
-    }
+    };
 
-    //};
-
-    }
   },
 
-  addOpponent : function (gameToken, playerToken){
+  addOpponent : function (gameId, playerToken){
 
-    var game = Games.findOne({"gameToken" : gameToken});
+    var game = Games.findOne({_id : gameId});
 
     Games.update(
     {_id: game._id, 'player.playerToken': {$ne: playerToken}}, 
