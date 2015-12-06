@@ -82,37 +82,18 @@ Meteor.methods({
   },
 
   moveTileDiscardTile : function(BoxToPlace, tileToMove, gameToken){
-    Boxes.update({ _id : BoxToPlace._id}, {$set : {hidden : false}},
-      function(err, result) {
-
-        if (!err){
-
-        Tiles.update({_id : tileToMove._id}, {$set : {tileState : "played"}});
-
-        var boxCount = Boxes.find({gameToken: gameToken, hidden : false}).fetch().length;
-
-        /*
-
-        if(boxCount >= 90 && boxCount <= 99){
-          Games.update({gameToken: gameToken}, {$set: {endGame : true}});
-          Meteor.call('shuffleBoard', gameToken, function (error, result) {});
-        };
-
-        */
+    Boxes.update({ _id : BoxToPlace._id}, {$set : {hidden : false}});
+    Tiles.update({_id : tileToMove._id}, {$set : {tileState : "played"}});
+    var boxCount = Boxes.find({gameToken: gameToken, hidden : false}).count();
 
         if(boxCount === 100){
           Games.update({gameToken: gameToken}, {$set: {finished : true}});
           console.log('game over');
-
         }else{
           console.log('game still going');
         };
 
-          return true
-
-        };
-
-    });
+         return true
   },
 
 

@@ -13,16 +13,19 @@ Box = React.createClass({
 
 	tileTime() {
 
-		if (Session.get("tile") === "none"){
-      		Session.set("outcome", "Select a tile from the list on the far right. Then click on a box.");
-      		analytics.track("No placement");
-    	}else{
+	    var tiles  = $('div.handTile')
+		var selected = tiles.filter('.highlight')    
+		var number = $(selected).data("spot");	
 
-    		var tiles  = $('div.handTile')
-    		var selected = tiles.filter('.highlight')    		
-    		placeTile($(selected).data("spot"), this.props.box.boxOrder);
+		if (typeof number === 'number'){
+
+			placeTile(number, this.props.box.boxOrder);
     		//var highlightedTile = tiles.index(selected) + 1;
       		$( "li" ).removeClass("highlight");
+
+    	}else{
+      		Session.set("outcome", "Select a tile from the list on the far right. Then click on a box.");
+      		analytics.track("No placement");
     	};
 
 	},

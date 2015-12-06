@@ -54,6 +54,8 @@ placeTile = function(tileSpot, boxSpot) {
 	var tileToMove = Tiles.findOne({gameToken : Session.get("gameToken"), spot: tileSpot });
 	var BoxToPlace = Boxes.findOne({gameToken : Session.get("gameToken"), boxOrder : boxSpot});
 
+	if(typeof BoxToPlace != "undefined" && typeof tileToMove != "undefined"){
+
 	if(BoxToPlace.content === tileToMove.content && BoxToPlace.hidden === true){
 		
 		Meteor.call('moveTileDiscardTile', BoxToPlace, tileToMove, Session.get("gameToken"), function (error, result) {
@@ -98,6 +100,7 @@ placeTile = function(tileSpot, boxSpot) {
   			correct: false
   		});
 	}
+	};
 };
 
 
