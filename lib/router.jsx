@@ -33,11 +33,11 @@ Router.route('/games/:_id', {
 		if (typeof Session.get('playerToken') === 'undefined'){
 			var playerToken = Random.id([8]);
 			Session.setDefaultPersistent('playerToken', playerToken);
-			Meteor.call('addOpponent', Session.get("gameId"), playerToken);
+			Meteor.call('addOpponent', Session.get("gameToken"), playerToken);
     		analytics.identify(playerToken);
  
 		}else{
-			Meteor.call('addOpponent', Session.get("gameId"), Session.get('playerToken'));
+			Meteor.call('addOpponent', Session.get("gameToken"), Session.get('playerToken'));
 			analytics.identify(Session.get('playerToken'));
 		};
     }

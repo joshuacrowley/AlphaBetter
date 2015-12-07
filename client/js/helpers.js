@@ -1,12 +1,3 @@
-Template.gameboard.helpers({
-  outcome: function(){
-    return Session.get("outcome");
-  },
-  gameOver: function(){
-    return Games.findOne({gameToken : Session.get("gameToken")}).finished;
-  }
-});
-
 Template.menu.helpers({
   winners: function () {
     Games.find({}).fetch();
@@ -86,9 +77,6 @@ Template.tileList.onRendered(function () {
 
 
 
-
-
-
 Template.tile.helpers({
 
   alphaTile : function(){
@@ -99,6 +87,13 @@ Template.tile.helpers({
 
 
 Template.gameboard.helpers({
+  
+  outcome: function(){
+    return Session.get("outcome");
+  },
+  gameOver: function(){
+    return Games.findOne({gameToken : Session.get("gameToken")}).finished;
+  },
   joined: function (){
 
     var player = Games.findOne({
@@ -111,11 +106,6 @@ Template.gameboard.helpers({
     }else{
       return true;
     }
-  },
-  gameScore : function (){
-    var player = Games.findOne({gameToken : Session.get("gameToken")}).player;
-    player = _.filter(player, function(player) { return player.playerToken === Session.get("playerToken") });
-    return player[0].playerScore;
   },
   gameover: function(){
     return Games.findOne({gameToken : Session.get("gameToken")}).finished;

@@ -71,9 +71,9 @@ Meteor.methods({
 
   },
 
-  addOpponent : function (gameId, playerToken){
+  addOpponent : function (gameToken, playerToken){
 
-    var game = Games.findOne({_id : gameId});
+    var game = Games.findOne({gameToken : gameToken});
 
     Games.update(
     {_id: game._id, 'player.playerToken': {$ne: playerToken}}, 
